@@ -5,7 +5,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-project = "Veeresh Hanni Project"
+project = "Veeresh Hanni Project's"
 copyright = "Veeresh Hanni"
 author = "Veeresh Hanni"
 release = "0.1.0"

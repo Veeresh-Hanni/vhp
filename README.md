@@ -1,6 +1,6 @@
 # Veeresh Hanni Project
 
-`vhp` is the root Python package for the Veeresh Hanni Project. It uses a
+`vhp` is the root Python package for the Veeresh Hanni Project's. It uses a
 standard `src/` layout and is built with `uv`.
 
 ## Install and run

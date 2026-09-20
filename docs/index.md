@@ -1,6 +1,6 @@
 # Veeresh Hanni Project learning guide
 
-Welcome to the **Veeresh Hanni Project (VHP)**. This repository brings
+Welcome to the **Veeresh Hanni Project's (VHP)**. This repository brings
 together Python libraries, developer tooling, and microservice examples built
 by Veeresh Hanni.
 
