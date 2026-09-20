@@ -1,0 +1,12 @@
+[submodule "DBDuck"]
+	path = DBDuck
+	url = https://github.com/Veeresh-Hanni/DBDuck.git
+[submodule "jospy"]
+	path = jospy
+	url = https://github.com/Veeresh-Hanni/jospy.git
+[submodule "microservices/microservice-system"]
+	path = microservices/microservice-system
+	url = https://github.com/Veeresh-Hanni/microservice-system.git
+[submodule "dompack"]
+	path = dompack
+	url = https://github.com/Veeresh-Hanni/dompack.git

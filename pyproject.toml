@@ -1,0 +1,17 @@
+[project]
+name = "vhp"
+version = "0.1.0"
+description = "Veeresh Hanni Project: open-source modules and personal projects for learning and contribution."
+readme = "README.md"
+authors = [
+    { name = "Veeresh Hanni", email = "veereshhanni347@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+vhp = "vhp:main"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"

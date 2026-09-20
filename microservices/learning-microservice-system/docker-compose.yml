@@ -1,0 +1,107 @@
+services:
+
+  # --------------------------------------------------
+  # Valkey
+  # --------------------------------------------------
+  valkey:
+    image: valkey/valkey:8-alpine
+    # No host port required.
+    # Other containers access it using valkey:6379.
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+
+  # --------------------------------------------------
+  # Kafka - KRaft single node
+  # --------------------------------------------------
+  kafka:
+    image: apache/kafka:latest
+
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+
+      KAFKA_LISTENERS: INTERNAL://:9092,EXTERNAL://:9094,CONTROLLER://:9093
+
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:9092,EXTERNAL://localhost:9094
+
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+
+    ports:
+      - "9094:9094"
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+      start_period: 10s
+
+
+  # --------------------------------------------------
+  # Inventory Service
+  # --------------------------------------------------
+  inventory-service:
+    build:
+      context: .
+      dockerfile: inventory_service/Dockerfile
+
+    environment:
+      VALKEY_URL: redis://valkey:6379/0
+
+    depends_on:
+      valkey:
+        condition: service_healthy
+
+    ports:
+      - "8001:8000"
+
+
+  # --------------------------------------------------
+  # Order Service
+  # --------------------------------------------------
+  order-service:
+    build:
+      context: .
+      dockerfile: order_service/Dockerfile
+
+    environment:
+      INVENTORY_URL: http://inventory-service:8000
+      VALKEY_URL: redis://valkey:6379/1
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+
+    depends_on:
+      kafka:
+        condition: service_healthy
+
+      inventory-service:
+        condition: service_started
+
+      valkey:
+        condition: service_healthy
+
+    ports:
+      - "8000:8000"
