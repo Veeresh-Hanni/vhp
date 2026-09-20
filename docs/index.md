@@ -23,7 +23,7 @@ microservices
 | [Jospy](https://jospy.readthedocs.io/) | JSON conversion, payload shaping, REST response envelopes | [source README](https://github.com/Veeresh-Hanni/jospy/blob/main/README.md) |
 | [DBDuck](https://dbduck.org.in/) | One data API across SQL, NoSQL, graph, and vector stores | [source README](https://github.com/Veeresh-Hanni/DBDuck/blob/main/README.md) |
 | [Dompack](https://github.com/Veeresh-Hanni/dDrive/tree/main/dompack) | Domain-based Python dependency bundles and installation | [source README](https://github.com/Veeresh-Hanni/dDrive/blob/main/dompack/README.md) |
-| Microservices | Django, FastAPI, Flask, Kafka, Valkey, NATS, Docker, and WSL workflows | [source README](https://github.com/Veeresh-Hanni/dDrive/blob/main/microservices/README.md) |
+| Microservices | Django, FastAPI, Flask, Kafka, Valkey, NATS, Docker, and WSL workflows | [source README](https://github.com/Veeresh-Hanni/vhp/tree/main/microservices/README.md) |
 
 ## Recommended learning path
 
