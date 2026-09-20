@@ -19,6 +19,7 @@ html_title = "VHP Learning Guide"
 html_static_path = ["_static"]
 html_css_files = ["sponsor.css"]
 html_js_files = ["sponsor.js"]
+html_extra_path = ["../googlebff88ee5bb92fdda.html"]
 myst_enable_extensions = [
     "colon_fence",
     "deflist",
