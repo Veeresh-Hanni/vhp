@@ -13,6 +13,7 @@ build/
 *.pyc
 .env
 *.txt
+!docs/requirements.txt
 venv/
 .venv/.env
 *.py[cod]
