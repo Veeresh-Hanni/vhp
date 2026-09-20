@@ -1,0 +1,86 @@
+.vhp-sponsor-popup {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1000;
+  width: min(22rem, calc(100vw - 2rem));
+  padding: 1.25rem;
+  border: 1px solid #d8dee9;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.18);
+  color: #2e3440;
+  font-size: 0.95rem;
+}
+
+.vhp-sponsor-popup[hidden] {
+  display: none;
+}
+
+.vhp-sponsor-popup h2 {
+  margin: 0 2rem 0.5rem 0;
+  color: #2e3440;
+  font-size: 1.15rem;
+}
+
+.vhp-sponsor-popup p {
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+.vhp-sponsor-popup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.vhp-sponsor-popup-actions a,
+.vhp-sponsor-popup-dismiss {
+  display: inline-block;
+  border: 0;
+  border-radius: 0.35rem;
+  padding: 0.5rem 0.7rem;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.vhp-sponsor-popup-actions a {
+  background: #2e3440;
+  color: #ffffff;
+}
+
+.vhp-sponsor-popup-actions a:hover,
+.vhp-sponsor-popup-actions a:focus {
+  background: #4c566a;
+  color: #ffffff;
+}
+
+.vhp-sponsor-popup-dismiss {
+  background: transparent;
+  color: #4c566a;
+}
+
+.vhp-sponsor-popup-dismiss:hover,
+.vhp-sponsor-popup-dismiss:focus {
+  text-decoration: underline;
+}
+
+.vhp-sponsor-popup-close {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.7rem;
+  border: 0;
+  background: transparent;
+  color: #4c566a;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .vhp-sponsor-popup {
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+}
