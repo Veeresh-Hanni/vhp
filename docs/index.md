@@ -234,3 +234,15 @@ Choose one small feature and implement it end to end:
 
 That exercise connects payload design, service boundaries, messaging, and
 idempotency across the VHP projects.
+
+## Support open source
+
+Your support helps me (Veeresh Hanni) improve the documentation, maintain the
+learning examples, and build new open-source libraries and coding tools for
+Python developers.
+
+- [Sponsor on GitHub](https://github.com/sponsors/Veeresh-Hanni)
+- [Support through Razorpay](https://razorpay.me/@veereshhanni)
+
+Thank you for helping make Python learning resources and open-source
+development work more accessible.
