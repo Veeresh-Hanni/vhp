@@ -15,7 +15,9 @@ larger service.
 :maxdepth: 2
 :caption: Learning modules
 
+libraries
 microservices
+microservice-stack
 ```
 
 ## Projects at a glance
@@ -32,8 +34,18 @@ microservices
 
 ### 1. Start with the VHP package
 
-The root package is intentionally small. It demonstrates a `src/` layout,
-package metadata, and an installed command-line entry point.
+The root VHP package is the entry point for the repository. It is intentionally
+small so that the packaging concepts are easy to see before moving to the
+larger libraries. It demonstrates a `src/` layout, package metadata, a build
+backend, a lock file, and an installed command-line entry point.
+
+The package teaches:
+
+- how Python discovers code inside a `src/` directory;
+- how `pyproject.toml` describes a package and its dependencies;
+- how a console script maps a shell command to a Python function;
+- how `uv sync` creates a reproducible development environment;
+- how a package can be tested independently from the projects it documents.
 
 From WSL or PowerShell:
 
@@ -57,10 +69,19 @@ Read:
 Try changing the greeting, running `uv run vhp`, and inspecting the generated
 lock file. This is the smallest safe way to learn the repository workflow.
 
+**Next exercise:** add a `--version` option to the command, expose the version
+from one source of truth, and add a test for the command output. The point is
+to learn the relationship between package metadata, importable code, and
+user-facing commands.
+
 ### 2. Learn JSON and REST payloads with Jospy
 
-Jospy is a small, dependency-free utility package for common API payload
-operations:
+Jospy solves a common application problem: every API needs to convert,
+validate, clean, and shape data before it is returned to a client. Instead of
+reimplementing these small transformations in every route, Jospy provides
+focused helpers and a chainable data layer.
+
+Jospy is useful when an application needs:
 
 - JSON text, bytes, files, and Python values
 - null and default handling
@@ -68,6 +89,11 @@ operations:
 - nested dot-path access
 - consistent API and pagination envelopes
 - a chainable `data()` layer
+
+The important design boundary is that Jospy handles data shaping, not business
+rules, authentication, database access, or HTTP transport. A route should
+still decide whether a user is allowed to see a record and whether the input
+is valid for the domain.
 
 Install the package while learning:
 
@@ -89,10 +115,34 @@ print(to_json(api_response(public, message="ok"), pretty=True))
 Learning exercise: add a `request_id` field to the response metadata without
 including private fields in the public payload.
 
+**What to study next:**
+
+1. `clean()` and JSON serialization of dates, UUIDs, enums, and decimals.
+2. `filter_data()` for public/private field boundaries.
+3. `get_path()` and `set_path()` for nested request data.
+4. `api_response()` and `paginated()` for stable client contracts.
+5. The `DataLayer` implementation to understand fluent, non-route-specific
+   transformations.
+
 ### 3. Learn data access with DBDuck
 
 DBDuck provides a Universal Data Object Model (UDOM): a common Python API for
-SQL, MongoDB, Neo4j, Qdrant, and asynchronous workflows.
+SQL, MongoDB, Neo4j, Qdrant, and asynchronous workflows. Its purpose is to
+keep application-level operations recognizable while adapters handle backend
+specific connection and query details.
+
+DBDuck is useful for learning:
+
+- how a common interface can hide backend-specific clients;
+- how SQL, document, graph, and vector workloads differ;
+- how transactions and lifecycle operations should be exposed;
+- how query builders can make filters composable;
+- how adapters, routers, validation, and error types form a library design.
+
+It is not a promise that all databases have identical capabilities. Graph
+relationships and vector similarity require operations that do not map to a
+simple SQL CRUD interface, so DBDuck exposes backend-specific helpers where
+that distinction matters.
 
 Read the official documentation at **[dbduck.org.in](https://dbduck.org.in/)**
 or the local `DBDuck/README.md` file.
@@ -123,10 +173,34 @@ Learning exercise: implement the same small “active users” example with
 SQLite and MongoDB, then compare what the application code does and what the
 adapter owns.
 
+**Suggested DBDuck progression:**
+
+1. Start with SQLite and inspect the generated records.
+2. Add a transaction that creates related data and rolls back on failure.
+3. Replace direct calls with the fluent query builder.
+4. Run the same repository operation against PostgreSQL or MongoDB.
+5. Add a graph relationship and query related nodes.
+6. Create a Qdrant collection and compare vector search with exact filtering.
+7. Read the adapter and connection-manager code to see where backend
+   differences are isolated.
+
+Use the official [DBDuck documentation](https://dbduck.org.in/) for the latest
+API and backend support details.
+
 ### 4. Learn environment automation with Dompack
 
 Dompack packages useful dependency groups as named bundles. It is useful when
-you are starting a project and want a repeatable developer setup.
+you are starting a project and want a repeatable developer setup without
+copying a long list of unrelated packages into every project.
+
+The bundle idea separates two concerns:
+
+- the project declares the libraries it truly needs;
+- the developer can install a practical toolset for a domain such as web
+  development, databases, testing, or security.
+
+Dompack also demonstrates installer selection, aliases, package discovery,
+and fallback behavior for externally managed Linux Python environments.
 
 From the `dompack/README.md` file:
 
@@ -143,6 +217,10 @@ are `dompack` and `dompk`.
 Learning exercise: inspect the `pyproject.toml` optional dependencies, create
 a small bundle for your own project, and verify it in a new virtual
 environment.
+
+**Good engineering practice:** treat bundles as starting points, not as a
+replacement for a project's lock file. After bootstrapping, record the exact
+dependencies and versions required by the application.
 
 ### 5. Learn microservices
 
@@ -184,6 +262,55 @@ The most important learning questions are:
 - Which changes become Kafka events?
 - Which state belongs in Valkey, and which state needs durable storage?
 - How would an outbox, authentication, retries, and observability improve it?
+
+### 6. Compare the microservice communication styles
+
+The examples intentionally show more than one integration style:
+
+| Style | Example | Best lesson |
+| --- | --- | --- |
+| Synchronous HTTP | Flask order service to FastAPI inventory service | A caller needs an immediate decision |
+| Asynchronous messaging | User events through NATS or order events through Kafka | A producer should not wait for every downstream action |
+| Shared short-lived state | Valkey idempotency and counters | Multiple replicas need coordinated temporary state |
+| Gateway routing | Django gateway or Flask edge | Clients should not need to know every internal service |
+
+When studying a service, identify the timeout, retry policy, ownership of
+data, and failure response for every network call. A diagram alone is not
+enough: reliable systems make failure behavior explicit.
+
+## Project-by-project outcomes
+
+After working through the repository, you should be able to:
+
+- package a Python project and expose a command-line entry point;
+- build predictable JSON responses without leaking private fields;
+- choose between CRUD, document, graph, and vector data access patterns;
+- create a repeatable virtual environment and dependency workflow;
+- split a feature into services with explicit ownership;
+- decide when to use HTTP and when to publish an event;
+- implement idempotency for retried requests;
+- use Valkey for short-lived coordination rather than durable business data;
+- design a Kafka event envelope and an idempotent consumer;
+- explain why production systems need an outbox, observability, and
+  authenticated service communication.
+
+## A complete learning project
+
+Combine the projects by building a small catalog application:
+
+1. Use Dompack to prepare a web and testing environment.
+2. Use FastAPI or Flask for the HTTP API.
+3. Use Jospy to shape public responses and pagination.
+4. Use DBDuck with SQLite for the first persistence implementation.
+5. Add a `catalog.item.created` Kafka event.
+6. Store a short-lived response cache or request idempotency key in Valkey.
+7. Add tests for validation, duplicate requests, and insufficient stock.
+8. Document the service contract and run the system through Docker or WSL.
+
+This exercise is intentionally incremental. Start with one process and one
+database, then introduce a second service only when there is a clear ownership
+or scaling reason. That approach teaches the trade-offs of microservices
+without turning every feature into deployment overhead.
 
 ## How the projects fit together
 
