@@ -4,6 +4,9 @@ Welcome to the **Veeresh Hanni Project's (VHP)**. This repository brings
 together Python libraries, developer tooling, and microservice examples built
 by Veeresh Hanni.
 
+The hosted version of this guide is available at
+[vhp.readthedocs.io](https://vhp.readthedocs.io/).
+
 The goal of this guide is to make the repository useful as a learning path:
 read a small project, run it, change it, and then use the same idea in a
 larger service.

@@ -1,7 +1,6 @@
 # Veeresh Hanni Project
 
-`vhp` is the root Python package for the Veeresh Hanni Project's. It uses a
-standard `src/` layout and is built with `uv`.
+`vhp` is the root Python package for the Veeresh Hanni Project's.
 
 ## Install and run
 
@@ -12,7 +11,7 @@ uv sync
 uv run vhp
 ```
 
-The package requires Python 3.14 or newer, as declared in `pyproject.toml`.
+The package requires Python 3.10 or newer, as declared in `pyproject.toml`.
 The installed `vhp` command is backed by `vhp.main`.
 
 ## Repository areas
@@ -27,6 +26,9 @@ See [`microservices/polyglot-system/README.md`](microservices/polyglot-system/RE
 for the Django, FastAPI, Flask, Valkey, Kafka, and rate-limiting system.
 
 ## Learn the VHP projects
+
+Read the hosted learning guide at
+[vhp.readthedocs.io](https://vhp.readthedocs.io/).
 
 The complete learning guide is available at
 [`docs/index.md`](docs/index.md). It explains what each project teaches and

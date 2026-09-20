@@ -31,7 +31,7 @@ contracts, local topology, and production checklist.
 
 ### Learn-by-doing order system
 
-[`learning-system/`](learning-system/) is a small runnable exercise. A Flask
+[`learning-microservice-system/`](learning-microservice-system/README.md) is a small runnable exercise. A Flask
 order service calls a FastAPI inventory service, stores an idempotency record
 in Valkey, and publishes `order.created` to Kafka. It includes Docker
 Compose, curl exercises, and tests so the flow can be learned one step at a

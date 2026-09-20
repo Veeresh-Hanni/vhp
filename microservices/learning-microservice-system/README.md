@@ -94,7 +94,7 @@ python -m uvicorn inventory_service.app:app --host 0.0.0.0 --port 8001 --reload
 Use a second WSL terminal:
 
 ```bash
-cd /path/to/vhp/microservices/learning-system
+cd /path/to/vhp/microservices/learning-microservice-system
 source .venv/bin/activate
 export INVENTORY_URL=http://localhost:8001
 export VALKEY_URL=redis://localhost:6379/1

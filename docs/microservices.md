@@ -8,14 +8,15 @@ polyglot architecture and then to a small order-and-inventory system.
 
 | Example | Main lesson | Local source |
 | --- | --- | --- |
-| Django + NATS | API gateway, JWT authentication, service ownership, and asynchronous notifications | [`microservice-system`](https://github.com/Veeresh-Hanni/dDrive/tree/main/microservices/microservice-system) |
-| Polyglot design | Django, FastAPI, Flask, Kafka, Valkey, and rate limiting | [`polyglot-system`](https://github.com/Veeresh-Hanni/dDrive/tree/main/microservices/polyglot-system) |
-| Learn-by-doing order system | Flask-to-FastAPI calls, Valkey idempotency, inventory reservation, and Kafka events | [`learning-microservice-system`](https://github.com/Veeresh-Hanni/dDrive/tree/main/microservices/learning-microservice-system) |
+| Django + NATS | API gateway, JWT authentication, service ownership, and asynchronous notifications | [`microservice-system`](https://github.com/Veeresh-Hanni/microservice-system) |
+| Polyglot design | Django, FastAPI, Flask, Kafka, Valkey, and rate limiting | [`polyglot-system`](https://github.com/Veeresh-Hanni/vhp/tree/main/microservices/polyglot-system) |
+| Learn-by-doing order system | Flask-to-FastAPI calls, Valkey idempotency, inventory reservation, and Kafka events | [`learning-microservice-system`](https://github.com/Veeresh-Hanni/vhp/tree/main/microservices/learning-microservice-system)
+
 
 The local source documentation remains useful when working from a checkout:
 
-- [`microservices/README.md`](https://github.com/Veeresh-Hanni/dDrive/blob/main/microservices/README.md)
-- [`learning-microservice-system/README.md`](https://github.com/Veeresh-Hanni/dDrive/blob/main/microservices/learning-microservice-system/README.md)
+- [`microservices/README.md`](https://github.com/Veeresh-Hanni/vhp/blob/main/microservices/README.md)
+- [`learning-microservice-system/README.md`](https://github.com/Veeresh-Hanni/vhp/blob/main/microservices/learning-microservice-system/README.md)
 
 ## What a microservice should own
 
